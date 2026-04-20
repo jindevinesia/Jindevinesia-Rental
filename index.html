@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jindevinesia - บริการเช่ารหัส FF</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Mali:wght@400;600&family=Mitr:wght@300;400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&family=Vibur&family=Unkempt:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #fbfae6;
@@ -27,7 +27,7 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Kanit', sans-serif;
+            font-family: 'Itim', cursive; /* ฟอนต์ภาษาไทย Itim */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -35,7 +35,7 @@
             padding: 20px;
         }
 
-        /* --- ส่วนที่ 1: Header / Intro Section (แก้ไขใหม่) --- */
+        /* --- ส่วนที่ 1: Header / Intro Section --- */
         .header-container {
             background: var(--white);
             width: 100%;
@@ -63,10 +63,11 @@
         }
 
         .brand-name {
-            font-family: 'Dancing Script', cursive; /* ฟอนต์ตัวเขียน */
-            font-size: 3.5rem;
+            font-family: 'Vibur', cursive; /* ฟอนต์ Vibur */
+            font-size: 4rem;
             color: #5b7da3;
             margin-bottom: 20px;
+            line-height: 1;
         }
 
         .profile-wrapper {
@@ -94,12 +95,13 @@
 
         .text-header-group {
             margin-bottom: 20px;
-            font-family: 'Mali', cursive;
-            font-size: 2rem; /* ขนาดเท่ากัน */
+            font-family: 'Unkempt', cursive; /* ฟอนต์ Unkempt */
+            font-size: 2.2rem;
+            line-height: 1.2;
         }
 
         .pls-read {
-            font-weight: 800; /* ตัวหนา */
+            font-weight: 700; /* ตัวหนาตามบรีฟเก่า */
             display: block;
         }
 
@@ -109,8 +111,8 @@
         }
 
         .content-box-top {
-            font-size: 0.95rem;
-            line-height: 1.7;
+            font-size: 1.1rem;
+            line-height: 1.6;
             white-space: pre-line;
             margin-bottom: 25px;
         }
@@ -133,7 +135,7 @@
             transform: translateY(-2px);
         }
 
-        /* --- ส่วนที่ 2: Rental Card Section (คงเดิม) --- */
+        /* --- ส่วนที่ 2: Rental Card Section --- */
         .card-container {
             width: 100%;
             max-width: 450px;
@@ -200,8 +202,8 @@
         }
 
         .description {
-            font-size: 16px;
-            opacity: 0.8;
+            font-size: 18px;
+            opacity: 0.9;
             margin-bottom: 20px;
         }
 
@@ -220,12 +222,12 @@
 
         .price-item span {
             display: block;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
         }
 
         .price-val {
-            font-size: 13px !important;
+            font-size: 14px !important;
             color: var(--primary-brown);
         }
 
@@ -267,13 +269,13 @@
             overflow: hidden;
             padding: 0 25px;
             transition: max-height 0.3s ease, padding 0.3s ease;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
             color: #eee;
         }
 
         .accordion-item.active .accordion-content {
-            max-height: 1000px;
+            max-height: 1200px;
             padding: 10px 25px 20px 25px;
         }
 
@@ -302,7 +304,7 @@
             border-radius: 8px;
             text-decoration: none;
             color: var(--primary-brown);
-            font-size: 12px;
+            font-size: 13px;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -436,7 +438,6 @@
 </div>
 
 <script>
-    // Accordion Logic
     document.querySelectorAll('.accordion-header').forEach(header => {
         header.addEventListener('click', () => {
             const item = header.parentElement;
@@ -444,7 +445,6 @@
         });
     });
 
-    // API URL จากที่ส่งมาให้ล่าสุด
     const apiUrl = 'https://script.google.com/macros/s/AKfycbzNY_vCYCSNd1uL4uq0-PO125wrcMn4KhvxExYcD05GMzGklcgtjLm3r8ueB-AwDEB7kw/exec';
 
     async function fetchData() {
@@ -455,7 +455,6 @@
             
             const item = data[0]; 
 
-            // อัปเดตข้อมูลตาม Key ใน JSON
             document.getElementById('itemCode').innerText = "ID: " + (item.Code || '----');
             document.getElementById('itemDesc').innerText = item.Description || 'ไม่มีรายละเอียด';
 
@@ -489,7 +488,6 @@
                 ).join('');
                 if (images.length > 1) startAutoSlider(images.length);
             }
-
         } catch (error) {
             console.error('Error fetching data:', error);
         }
