@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jindevinesia - บริการเช่ารหัส FF</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Mali:wght@400;600&family=Mitr:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Mali:wght@400;600&family=Mitr:wght@300;400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #fbfae6;
@@ -35,7 +35,7 @@
             padding: 20px;
         }
 
-        /* --- ส่วนที่ 1: Header / Intro Section --- */
+        /* --- ส่วนที่ 1: Header / Intro Section (แก้ไขใหม่) --- */
         .header-container {
             background: var(--white);
             width: 100%;
@@ -59,12 +59,12 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            justify-content: center;
         }
 
         .brand-name {
-            font-family: 'Georgia', serif;
-            font-style: italic;
-            font-size: 2.5rem;
+            font-family: 'Dancing Script', cursive; /* ฟอนต์ตัวเขียน */
+            font-size: 3.5rem;
             color: #5b7da3;
             margin-bottom: 20px;
         }
@@ -76,21 +76,12 @@
             overflow: hidden;
             border: 5px solid var(--white);
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
         }
 
         .profile-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-
-        .line-contact-top {
-            background: #e9dcf7;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .details-section {
@@ -101,17 +92,20 @@
             justify-content: center;
         }
 
-        .pls-read {
+        .text-header-group {
+            margin-bottom: 20px;
             font-family: 'Mali', cursive;
-            font-size: 1.5rem;
-            opacity: 0.8;
+            font-size: 2rem; /* ขนาดเท่ากัน */
+        }
+
+        .pls-read {
+            font-weight: 800; /* ตัวหนา */
+            display: block;
         }
 
         .details-header {
-            font-family: 'Mali', cursive;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
+            font-weight: 400; /* ความหนาปกติ */
+            display: block;
         }
 
         .content-box-top {
@@ -131,9 +125,15 @@
             font-weight: 600;
             text-align: center;
             box-shadow: 0 4px 10px rgba(176, 198, 223, 0.4);
+            transition: 0.3s;
         }
 
-        /* --- ส่วนที่ 2: Rental Card Section (โค้ดแนบ) --- */
+        .btn-drive:hover {
+            background-color: #9db5d1;
+            transform: translateY(-2px);
+        }
+
+        /* --- ส่วนที่ 2: Rental Card Section (คงเดิม) --- */
         .card-container {
             width: 100%;
             max-width: 450px;
@@ -322,14 +322,13 @@
         <div class="profile-wrapper">
             <img src="https://i.postimg.cc/GmBg8TSN/AHH-TOO-CLOSE-62-20260325125219.png" alt="Jindevinesia Profile">
         </div>
-        <div class="line-contact-top">
-            Line: @088jssxc
-        </div>
     </div>
 
     <div class="details-section">
-        <div class="pls-read">pls read</div>
-        <div class="details-header">Details</div>
+        <div class="text-header-group">
+            <span class="pls-read">pls read</span>
+            <span class="details-header">Details</span>
+        </div>
         <div class="content-box-top">
 🛼♡👚   𓈒   Jindevi  ݁ nesia    ݂   🏡
 ปล่อยเช่ารหัสff 𓈒 มีมากกว่า 40ไอดี
@@ -445,26 +444,29 @@
         });
     });
 
-    // Fetch Data from API
+    // API URL จากที่ส่งมาให้ล่าสุด
     const apiUrl = 'https://script.google.com/macros/s/AKfycbzNY_vCYCSNd1uL4uq0-PO125wrcMn4KhvxExYcD05GMzGklcgtjLm3r8ueB-AwDEB7kw/exec';
 
     async function fetchData() {
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
-            const item = Array.isArray(data) ? data[0] : data;
+            if (!data || data.length === 0) return;
+            
+            const item = data[0]; 
 
-            document.getElementById('itemCode').innerText = item.code || 'CODE';
-            document.getElementById('itemDesc').innerText = item.description || 'Description details';
+            // อัปเดตข้อมูลตาม Key ใน JSON
+            document.getElementById('itemCode').innerText = "ID: " + (item.Code || '----');
+            document.getElementById('itemDesc').innerText = item.Description || 'ไม่มีรายละเอียด';
 
             const statusDot = document.getElementById('statusDot');
             const statusText = document.getElementById('statusText');
-            const s = (item.status || '').toLowerCase();
+            const s = (item.Status || '').toLowerCase();
             
-            if (s.includes('available')) {
+            if (s.includes('ว่าง') || s.includes('available')) {
                 statusDot.style.backgroundColor = 'var(--status-available)';
                 statusText.innerText = 'available';
-            } else if (s.includes('busy')) {
+            } else if (s.includes('ไม่ว่าง') || s.includes('busy')) {
                 statusDot.style.backgroundColor = 'var(--status-busy)';
                 statusText.innerText = 'busy';
             } else {
@@ -473,16 +475,19 @@
             }
 
             const priceVals = document.querySelectorAll('.price-val');
-            const prices = [item.price1hr, item.price3hr, item.price5hr, item.price8hr, item.price24hr];
+            const prices = [item.Price1hr, item.Price3hr, item.Price5hr, item.Price8hr, item.Price24hr];
             priceVals.forEach((el, i) => {
-                el.innerText = prices[i] ? prices[i] + '฿' : '-';
+                const price = prices[i];
+                el.innerText = (price && price !== 0) ? price + '฿' : '-';
             });
 
             const slider = document.getElementById('imageSlider');
-            const images = item.image ? item.image.split(',') : [];
-            if(images.length > 0) {
-                slider.innerHTML = images.map(imgUrl => `<img src="${imgUrl.trim()}" alt="item">`).join('');
-                startAutoSlider(images.length);
+            if (item.Image) {
+                const images = item.Image.split(',');
+                slider.innerHTML = images.map(imgUrl => 
+                    `<img src="${imgUrl.trim()}" onerror="this.src='https://via.placeholder.com/400x250?text=Invalid+Image+URL'" alt="item">`
+                ).join('');
+                if (images.length > 1) startAutoSlider(images.length);
             }
 
         } catch (error) {
@@ -493,8 +498,8 @@
     function startAutoSlider(count) {
         let current = 0;
         const slider = document.getElementById('imageSlider');
-        if (count <= 1) return;
-        setInterval(() => {
+        if (window.sliderInterval) clearInterval(window.sliderInterval);
+        window.sliderInterval = setInterval(() => {
             current = (current + 1) % count;
             slider.style.transform = `translateX(-${current * 100}%)`;
         }, 3000);
