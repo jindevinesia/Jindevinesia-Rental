@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jindevinesia - บริการเช่ารหัส FF</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Mali:wght@400;600&family=Mitr:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #fbfae6;
+            --accent-color: #b0c6df;
+            --text-main: #4c2e1f;
+            --white: #ffffff;
+            --card-bg: #b0c6df;
+            --primary-brown: #4c2e1f;
+            --status-available: #4CAF50;
+            --status-busy: #F44336;
+            --status-close: #000000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Kanit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* --- ส่วนที่ 1: Header / Intro Section --- */
+        .header-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 800px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(76, 46, 31, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 650px) {
+            .header-container { grid-template-columns: 1fr; }
+        }
+
+        .identity-section {
+            background-color: #f2f2f2;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .brand-name {
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: #5b7da3;
+            margin-bottom: 20px;
+        }
+
+        .profile-wrapper {
+            width: 250px;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 5px solid var(--white);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .profile-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .line-contact-top {
+            background: #e9dcf7;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .details-section {
+            background-color: #fff9d7;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pls-read {
+            font-family: 'Mali', cursive;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .details-header {
+            font-family: 'Mali', cursive;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .content-box-top {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-line;
+            margin-bottom: 25px;
+        }
+
+        .btn-drive {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-main);
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(176, 198, 223, 0.4);
+        }
+
+        /* --- ส่วนที่ 2: Rental Card Section (โค้ดแนบ) --- */
+        .card-container {
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--card-bg);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding-bottom: 30px;
+        }
+
+        .image-section {
+            position: relative;
+            background-color: #fffbe6;
+            margin: 15px;
+            border-radius: 15px;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.4s ease-in-out;
+            height: 100%;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .info-section {
+            text-align: center;
+            padding: 10px 20px;
+        }
+
+        .code-id {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .description {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            margin-bottom: 25px;
+        }
+
+        .price-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 2px;
+            border-radius: 8px;
+        }
+
+        .price-item span {
+            display: block;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .price-val {
+            font-size: 13px !important;
+            color: var(--primary-brown);
+        }
+
+        .booking-title {
+            background: #fce4ec;
+            color: #d81b60;
+            display: inline-block;
+            padding: 4px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .accordion {
+            margin: 0 20px;
+            text-align: left;
+        }
+
+        .accordion-item {
+            background-color: var(--primary-brown);
+            color: white;
+            border-radius: 30px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            padding: 15px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 25px;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #eee;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+            padding: 10px 25px 20px 25px;
+        }
+
+        .accordion-header::after {
+            content: '❯';
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(90deg);
+        }
+
+        .contact-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            padding: 0 10px;
+        }
+
+        .contact-btn {
+            background-color: #fff;
+            padding: 6px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--primary-brown);
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 380px) {
+            .price-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <div class="identity-section">
+        <h1 class="brand-name">Jindevinesia</h1>
+        <div class="profile-wrapper">
+            <img src="https://i.postimg.cc/GmBg8TSN/AHH-TOO-CLOSE-62-20260325125219.png" alt="Jindevinesia Profile">
+        </div>
+        <div class="line-contact-top">
+            Line: @088jssxc
+        </div>
+    </div>
+
+    <div class="details-section">
+        <div class="pls-read">pls read</div>
+        <div class="details-header">Details</div>
+        <div class="content-box-top">
+🛼♡👚   𓈒   Jindevi  ݁ nesia    ݂   🏡
+ปล่อยเช่ารหัสff 𓈒 มีมากกว่า 40ไอดี
+             ꒰𓈒  Start  25  thb  𓈒꒱
+มีราคาเท บัตรสะสมแต้ม มีโปรแถม
+งบไม่พอแจ้งได้คับ เช่าเยอะผ่อนได้
+🏄🏻‍♀️   ݂  มีรายชม. ยันนอน ทั้งวัน    ݁   ♡
+ยืนยันไม่เยอะ 𓈒 เล่นได้ทุกโหมดเลย
+แรงค์ลดทางร้านเค้าไม่มีปรับ 🍵  ݁ ✿
+มีประวัติการเช่าไม่ต้องถ่ายคู่หน้าคับ
+สอบถามหรือจองสามารถทักdmเลย
+🩰 𓈒  ทักไม่ได้ทักไลน์ของร้านได้เลย
+หรือเม้นที่ใต้โพสต์แม่ค้าได้เลยค้าบ יִ
+꒰𓈒 บัตรเปลี่ยนชื่อบวกใบละ 𓈒꒱ 65 thb
+꒰𓈒 คะแนนลดปรับคะแนนละ 𓈒꒱ 50 thb
+
+✿ งดสุ่มทีมหรือแชทโลกเด็ดขาดน้า  יִ  
+หาเพื่อนไปให้ครบ 𓈒 ทีมทุกกรณีนะคะ 
+เพื่อป้องกันรหัสมีการติดดำขึ้นมา  ݂ 🐠
+🧃♡ หากทำติดดำ 𓈒 ต้องจ่ายค่าปรับ יִ
+จ่ายรายวันจนกว่ารหัสจะปกติทุกกรณี
+        </div>
+        <a href="https://drive.google.com/drive/folders/1x6DNcHV3GhmoG3XhJj8L9GxnYgWm8Tvl" class="btn-drive" target="_blank">
+            คลิ๊กเพื่อดูรหัสเพิ่มเติม
+        </a>
+    </div>
+</div>
+
+<div class="card-container">
+    <div class="image-section">
+        <div class="status-badge" id="statusContainer">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Loading...</span>
+        </div>
+        <div class="slider" id="imageSlider"></div>
+    </div>
+
+    <div class="info-section">
+        <h1 class="code-id" id="itemCode">ID: ----</h1>
+        <p class="description" id="itemDesc">...</p>
+
+        <div class="price-grid" id="priceGrid">
+            <div class="price-item"><span>1 hr</span><span class="price-val">-</span></div>
+            <div class="price-item"><span>3 hr</span><span class="price-val">-</span></div>
+            <div class="price-item"><span>5 hr</span><span class="price-val">-</span></div>
+            <div class="price-item"><span>8 hr</span><span class="price-val">-</span></div>
+            <div class="price-item"><span>24 hr</span><span class="price-val">-</span></div>
+        </div>
+
+        <div class="booking-title">จอง</div>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-header">🌟 【 กฎยืนยัน 】 ♡</div>
+                <div class="accordion-content">
+                    01 𓈒 บัตรประชาชน 𓈒 หรือใช้ บัตรนักเรียน 𓈒 ไม่มีประวัติเช่า คู่หน้าค้าบ 🤌🏻♡ <br>
+                    02 𓈒 แคปรายละเอียดวอหรือ ธนาคาร ชื่อต้องตรงกับบัตร บางกรณี 𓈒จะอนุโลมให้นะค้าบ <br>
+                    03 𓈒 เฟสพ่อแม่ และ เพื่อน 2 💭🍀 คนขึ้นไป พร้อมแชท <br>
+                    04 𓈒 แคปเบอร์พ่อแม่ที่อยู่ใน แอพรายชื่อมาด้วยน้า ݂ ♡ <br>
+                    05 𓈒 เพจโรงเรียน หรือ สถาน ที่ทำงาน ปัจจุบันเท่านั้นนะคะ <br>
+                    06 𓈒 รุ่นโทรศัพท์ที่ใช้เข้า ! <br>
+                    07 𓈒 🪿♡ ݂ แชร์ location พร้อมปักหมุด และ 𓈒 พิมพ์ที่อยู่
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">🐹💭 𓈒 กฎการเล่น 🌸</div>
+                <div class="accordion-content">
+                    01 𓈒 เล่นได้ทุกโหมด 𓈒แรงค์ ลดไม่ปรับ เปลี่ยนโปรไฟล์ได้ ตั้งสังเขปหน้าเกมได้นะค้าบ ! <br>
+                    02 𓈒 ห้ามใช้ไอเทมทุกอย่าง ในไอดีโดย 𓈒ไม่ได้รับอนุญาต 🍈🌟 ݂ พบเจอปรับ 500฿ <br>
+                    03 𓈒 ห้ามเข้า ╸ ออกแคลน หรือ ลบคู่แต่งงานออก 🐰 พบเจอปรับ 500฿ 𓈒 ทุกกรณี <br>
+                    04 𓈒 ห้าม ใช้โปรแกรมโกง ทุกชนิด รวมถึงการเล่น𓈒มอส ถ้าเค้าพบเจอปรับ 1000฿ ! <br>
+                    05 𓈒 ทำคะแนนลด 𓈒 พบเจอ ปรับคะแนนละ 10฿ ݂ 🍮 <br>
+                    06 𓈒 หาก ครบเวลากำหนด อัดคลิปออกให้ติดเวลา 𓈒 หาก เกินเวลาปรับนาทีละ 10฿ ♡ <br>
+                    07 𓈒 หากพบว่าแอบเล่นหรือ ♡ ไม่ออกไอดี ถ้าเค้ารู้ทีหลัง ขออนุญาตปรับนาทีละ 𓈒 10฿ 🍀🪿 ݂ หรือปรับเอารวย <br>
+                    08 𓈒 ทำไอดีเสียหาย 𓈒 ไม่ว่า จะเป็นติดดำ หรือ โดนระงับ ! พบเจอปรับ 500฿ 𓈒 ทุกกรณี 👚 𓈒 คนสุดท้ายที่เช่าจะต้อง รับผิดชอบทุกกรณีนะคะ ݂ ♡ ♡ จ่ายค่าปรับ *2 ของไอดี
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">แคปจอก่อนเล่น+วิธีอัดออกรหัส</div>
+                <div class="accordion-content">
+                    ♡ 𓈒 ก่อนเข้าเล่นแคปตามนี้ ให้เค้าก่อนนะคะ ݂ 🍮🐹 <br>
+                    01 𓈒 แคปหน้าล็อบบี้ <br>
+                    02 𓈒 แคปคะแนนความดี <br>
+                    03 𓈒 แคปประวัติการล็อกอิน <br>
+                    04 𓈒 แคปบัญชีและพื้นฐาน ! <br><br>
+                    🌼 ݂ 【 วิธีอัดออกรหัส 】 <br>
+                    01 𓈒 อัดหน้าจอ ♡♡ <br>
+                    02 𓈒 กดเข้าที่โปรไฟล์ให้เห็น ชื่อเกม + คะแนนความดี ݂ 🍈 และ บัญชีพื้นฐานที่ตั้งค่าเกม <br>
+                    03 𓈒 กดล็อกเอ้าท์เกม <br>
+                    04 𓈒 เลื่อนลงให้เห็นเวลา ! <br>
+                    ** ใช้วิธีการอัดหน้าจอไม่ได้ โทรแชร์จอ 𓈒 only ݂ 🌸🐬 <br>
+                    ♡ ไม่ทำตามกดปรับ 200฿
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section">
+            <a href="https://lin.ee/ZlvOxgr" class="contact-btn">Line: @088jssxc</a>
+            <a href="https://www.facebook.com/share/1BjMbMqwbU/?mibextid=wwXIfr" class="contact-btn">Facebook</a>
+            <a href="https://www.instagram.com/jindevinesia.app" class="contact-btn">Instagram</a>
+            <a href="https://discord.gg/sGpaGAAU9" class="contact-btn">Discord</a>
+            <a href="https://x.com/jindevinesia" class="contact-btn">X (Twitter)</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Accordion Logic
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        });
+    });
+
+    // Fetch Data from API
+    const apiUrl = 'https://script.google.com/macros/s/AKfycbzNY_vCYCSNd1uL4uq0-PO125wrcMn4KhvxExYcD05GMzGklcgtjLm3r8ueB-AwDEB7kw/exec';
+
+    async function fetchData() {
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            const item = Array.isArray(data) ? data[0] : data;
+
+            document.getElementById('itemCode').innerText = item.code || 'CODE';
+            document.getElementById('itemDesc').innerText = item.description || 'Description details';
+
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            const s = (item.status || '').toLowerCase();
+            
+            if (s.includes('available')) {
+                statusDot.style.backgroundColor = 'var(--status-available)';
+                statusText.innerText = 'available';
+            } else if (s.includes('busy')) {
+                statusDot.style.backgroundColor = 'var(--status-busy)';
+                statusText.innerText = 'busy';
+            } else {
+                statusDot.style.backgroundColor = 'var(--status-close)';
+                statusText.innerText = 'close';
+            }
+
+            const priceVals = document.querySelectorAll('.price-val');
+            const prices = [item.price1hr, item.price3hr, item.price5hr, item.price8hr, item.price24hr];
+            priceVals.forEach((el, i) => {
+                el.innerText = prices[i] ? prices[i] + '฿' : '-';
+            });
+
+            const slider = document.getElementById('imageSlider');
+            const images = item.image ? item.image.split(',') : [];
+            if(images.length > 0) {
+                slider.innerHTML = images.map(imgUrl => `<img src="${imgUrl.trim()}" alt="item">`).join('');
+                startAutoSlider(images.length);
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    function startAutoSlider(count) {
+        let current = 0;
+        const slider = document.getElementById('imageSlider');
+        if (count <= 1) return;
+        setInterval(() => {
+            current = (current + 1) % count;
+            slider.style.transform = `translateX(-${current * 100}%)`;
+        }, 3000);
+    }
+
+    fetchData();
+</script>
+
+</body>
+</html>
